@@ -54,7 +54,10 @@ function uploadImg(key, readableStream) {
             }
             if (respInfo.statusCode == 200) {
                 console.log(`上传成功，地址是：http://ov532c17r.bkt.clouddn.com/${key}`);
-                console.log(respBody);
+                const mdText = `![](http://ov532c17r.bkt.clouddn.com/${key})`;
+                clipboard.writeText(mdText);
+                console.log(`${mdText} 已经被复制，可以直接粘贴到你的markdown中`);
+                // console.log(respBody);
             } else {
                 console.log(respInfo.statusCode);
                 console.log(respBody);
@@ -66,12 +69,14 @@ function uploadImg(key, readableStream) {
 
 function doUpload() {
     const image = clipboard.readImage();
-    // const img = new Tray(image);
+    if (image.isEmpty()) {
+        console.log('貌似剪切板里没有图片啊');
+        return;
+    }
     const imgBuf = image.toPNG();
     const imageStream = new Readable();
     imageStream.push(imgBuf);
     imageStream.push(null);
-    // console.log(imageStream);
     const key = Math.random().toString(36).substr(2) + '.png';
     uploadImg(key, imageStream);
 }
