@@ -3,19 +3,22 @@
   "version": "1.0.0",
   "description": "一个自动将剪切板的图片上传到七牛云并生成链接的工具，便于写MarkDown",
   "main": "index.js",
+  "bin": {
+    "qiniu-upload": "./bin/index.js"
+  },
   "scripts": {
     "start": "electron index.js"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/demon-monk/image-uploader-qiniu.git"
+    "url": "https://github.com/bang0306/image-uploader-qiniu.git"
   },
-  "author": "demon-monk",
+  "author": "bang0306",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/demon-monk/image-uploader-qiniu/issues"
+    "url": "https://github.com/bang0306/image-uploader-qiniu/issues"
   },
-  "homepage": "https://github.com/demon-monk/image-uploader-qiniu#readme",
+  "homepage": "https://github.com/bang0306/image-uploader-qiniu#readme",
   "dependencies": {
     "electron": "^1.7.10",
     "qiniu": "^7.1.1"

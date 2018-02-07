@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 const { Readable } = require('stream');
 const qiniu = require('qiniu');
 const {app, clipboard } = require('electron');
