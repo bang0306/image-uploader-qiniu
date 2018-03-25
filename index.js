@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env electron
 const { Readable } = require('stream');
 const qiniu = require('qiniu');
 const {app, clipboard } = require('electron');
@@ -30,7 +30,9 @@ var mac = null;
 var uploadToken = null;
 var formUploader = null;
 var putExtra = null;
+var domain = '';
 function qiniuInit(accessKey, secretKey, bucket, urlDomain, serverPosition) {
+    domain = urlDomain;
     mac = new qiniu.auth.digest.Mac(accessKey, secretKey);
     var options = {
       scope: bucket,
@@ -54,8 +56,8 @@ function uploadImg(key, readableStream) {
                 throw respErr;
             }
             if (respInfo.statusCode == 200) {
-                console.log(`上传成功，地址是：http://ov532c17r.bkt.clouddn.com/${key}`);
-                const mdText = `![](http://ov532c17r.bkt.clouddn.com/${key})`;
+                console.log(`上传成功，地址是：${domain}/${key}`);
+                const mdText = `![](${domain}/${key})`;
                 clipboard.writeText(mdText);
                 console.log(`${mdText} 已经被复制，可以直接粘贴到你的markdown中`);
                 // console.log(respBody);
