@@ -33,7 +33,7 @@ function doConfig() {
         } else if (cnt === 4) {
             configLocal.urlDomain = chunk;
             cnt ++;
-            console.log('server position: [0:华北 1:华东 2:华南 3:北美]');
+            console.log('server position: [0:华东 1:华北 2:华南 3:北美]');
         } else if (cnt === 5) {
             configLocal.serverPosition = chunk;
             cnt ++;
