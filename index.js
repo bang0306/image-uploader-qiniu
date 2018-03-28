@@ -3,6 +3,7 @@ const { Readable } = require('stream');
 const qiniu = require('qiniu');
 const {app, clipboard } = require('electron');
 const fs = require('fs');
+const path = require('path');
 
 const initSuccessMsg = '启动成功，按r键把剪切板里的图片上传到七牛云里吧，按q键退出';
 
@@ -99,7 +100,7 @@ app.on('ready', function() {
             bucket,
             urlDomain,
             serverPosition
-        } = require('./config.json');
+        } = require(path.join(__dirname, 'config.json'));
         qiniuInit(accessKey, secretKey, bucket, urlDomain, serverPosition);
         console.log(initSuccessMsg);
     } catch (e) {
@@ -117,7 +118,7 @@ app.on('ready', function() {
                 bucket,
                 urlDomain,
                 serverPosition
-            } = require('./config.json')
+            } = require(path.join(__dirname, 'config.json'))
             qiniuInit(accessKey, secretKey, bucket, urlDomain, serverPosition);
             console.log(initSuccessMsg);
         }

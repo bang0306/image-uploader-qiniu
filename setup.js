@@ -1,4 +1,5 @@
 const fs = require('fs');
+const path = require('path');
 
 let configLocal = {};
 // const configString = null;
@@ -36,7 +37,7 @@ function doConfig() {
         } else if (cnt === 5) {
             configLocal.serverPosition = chunk;
             cnt ++;
-            fs.writeFileSync('./config.json', JSON.stringify(configLocal));
+            fs.writeFileSync(path.join(__dirname, 'config.json'), JSON.stringify(configLocal));
             console.log('已完成配置，开始愉快地贴图吧, 按e键开始使用');
             // process.stdin.emit('end');
         }
