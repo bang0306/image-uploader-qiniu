@@ -1,5 +1,5 @@
 {
-  "name": "screenshot2qiniu",
+  "name": "qiniu-upload",
   "version": "1.0.3",
   "description": "一个自动将剪切板的图片上传到七牛云并生成链接的工具，便于写MarkDown",
   "main": "index.js",

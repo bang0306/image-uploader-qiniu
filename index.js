@@ -58,7 +58,7 @@ function uploadImg(key, readableStream) {
             }
             if (respInfo.statusCode == 200) {
                 console.log(`上传成功，地址是：${domain}/${key}`);
-                const mdText = `![](${domain}/${key})`;
+                const mdText = `![](http://${domain}/${key})`;
                 clipboard.writeText(mdText);
                 console.log(`${mdText} 已经被复制，可以直接粘贴到你的markdown中`);
                 // console.log(respBody);
