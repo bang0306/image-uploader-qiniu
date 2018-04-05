@@ -54,7 +54,8 @@ $ qiniu-upload # 可以不用sudo
 ![](http://ov532c17r.bkt.clouddn.com/cx72sae5trc.png)
 
 直接在md编辑器中粘贴，即可看到图片
-
+- 你也可以使用`r fileName`的方式来指定你上传文件的文件名。如果像上面一样没有指定文件名，便将上传文件自动命名成一组随机字符串。文件名内不要出现空格，不需要指定拓展名，上传格式目前只支持png。
+![](http://ov532c17r.bkt.clouddn.com//r_name_example.png)
 4、上传成功后，会自动进入等待状态，如果继续上传图片，只需要截图后按r就可以了
 
 # 注意事项

@@ -5,7 +5,7 @@ const {app, clipboard } = require('electron');
 const fs = require('fs');
 const path = require('path');
 
-const initSuccessMsg = '启动成功，按r键把剪切板里的图片上传到七牛云里吧，按q键退出';
+const initSuccessMsg = '启动成功，输入"r 文件名"把剪切板里的图片上传到七牛云里吧，按q键退出';
 
 function getServerPosition(code) {
     switch (code) {
@@ -58,7 +58,7 @@ function uploadImg(key, readableStream) {
             }
             if (respInfo.statusCode == 200) {
                 console.log(`上传成功，地址是：${domain}/${key}`);
-                const mdText = `![](http://${domain}/${key})`;
+                const mdText = `![](${domain}/${key})`;
                 clipboard.writeText(mdText);
                 console.log(`${mdText} 已经被复制，可以直接粘贴到你的markdown中`);
                 // console.log(respBody);
@@ -71,7 +71,7 @@ function uploadImg(key, readableStream) {
 
 
 
-function doUpload() {
+function doUpload(fileName=false) {
     const image = clipboard.readImage();
     if (image.isEmpty()) {
         console.log('貌似剪切板里没有图片啊');
@@ -81,7 +81,7 @@ function doUpload() {
     const imageStream = new Readable();
     imageStream.push(imgBuf);
     imageStream.push(null);
-    const key = Math.random().toString(36).substr(2) + '.png';
+    const key = fileName || Math.random().toString(36).substr(2) + '.png';
     uploadImg(key, imageStream);
 }
 
@@ -101,6 +101,7 @@ app.on('ready', function() {
             urlDomain,
             serverPosition
         } = require(path.join(__dirname, 'config.json'));
+        urlDomain = urlDomain.startsWith('http://') ? urlDomain : 'http://' + urlDomain;
         qiniuInit(accessKey, secretKey, bucket, urlDomain, serverPosition);
         console.log(initSuccessMsg);
     } catch (e) {
@@ -122,8 +123,13 @@ app.on('ready', function() {
             qiniuInit(accessKey, secretKey, bucket, urlDomain, serverPosition);
             console.log(initSuccessMsg);
         }
-        if (chunk === 'r\n') {
-            doUpload();
+        if (chunk[0] === 'r') {
+            var arr = chunk.split(' ');
+            if (arr.length === 2) {
+                doUpload(arr[1].trim()+'.png');
+            } else {
+                doUpload();
+            }
         } else if (chunk === 'q\n') {
             process.stdin.emit('end')
         } else if (chunk === 'c\n') {
